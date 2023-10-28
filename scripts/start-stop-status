@@ -1,0 +1,69 @@
+#!/bin/bash
+# Copyright (C) 2000-2017 Synology Inc. All rights reserved.
+
+set -eux
+
+script_root=`dirname $0`
+package_root=`realpath -m ${script_root}/..`
+driver_name=`basename ${package_root}`
+driver_root="${SYNOPKG_PKGDEST:-${package_root}/target}/${driver_name}"
+log_root="${package_root}/var/log"
+
+
+count_usb_storages()
+{
+  mount | grep /volumeUSB | wc -l
+}
+
+mkdir -p "${log_root}"
+exec &> >(tee -a "${log_root}/start-stop-status.log")
+echo "----------"
+date
+grep -E '^(version|create_time)' ${package_root}/INFO
+echo $*
+
+case $1 in
+  start)
+    storage_count=`count_usb_storages`
+    if [ $storage_count -ne 0 ]
+    then
+      echo "USB volues are mounted. Skip loading uas driver."
+      exit 0
+    fi
+
+    if (/sbin/lsmod | grep -E ^usb_storage)
+    then
+      /sbin/rmmod usb-storage
+    fi
+
+    /sbin/insmod ${driver_root}/usb-storage.ko
+    /sbin/insmod ${driver_root}/uas.ko
+
+    exit 0
+  ;;
+  stop)
+    storage_count=`count_usb_storages`
+    if [ $storage_count -ne 0 ]
+    then
+      echo "USB volues are mounted. Unloading uas driver failed."
+      exit 1
+    fi
+
+    /sbin/rmmod uas || true
+    /sbin/rmmod usb-storage || true
+
+    # restore default usb-storage module if possible
+    /sbin/modprobe usb-storage || true
+
+    exit 0
+  ;;
+  status)
+    (/sbin/lsmod | grep -E ^uas) && exit 0 || exit 3
+  ;;
+  killall)
+    exit 0
+  ;;
+  log)
+    exit 0
+  ;;
+esac
