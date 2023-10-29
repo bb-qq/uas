@@ -93,6 +93,16 @@ The uac (UAS) driver is used.
 
 Also, make sure that the device is connected via USB 3 by `3.20 5000MBit/s`.
 
+## Known issues
+
+### Automatic driver loading at system startup is useless.
+
+USB storage is attached and mounted using the stock USB storage driver at system startup. The UAS driver is then loaded afterward.
+
+Because of this order, the loading process of the UAS driver is skipped even if the UAS driver package is set to auto-run.
+
+As a workaround, eject the USB storage and restart the driver package manually when the system is rebooted.
+
 ## Performance test
 
 ### Environment
