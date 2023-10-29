@@ -84,7 +84,7 @@ The usb-storage (BOT) driver is used.
   2-2:1.0         (IF) 08:06:50 2EPs () usb-storage host17 (sdq)
 ```
 
-The uac (UAS) driver is used.
+The uas (UAS) driver is used.
 ```
 |__usb2          1d6b:0003:0404 09  3.00 5000MBit/s 0mA 1IF  (Linux 4.4.302+ xhci-hcd xHCI Host Controller 0000:00:15.0) hub
   |__2-2         152d:0580:7501 00  3.20 5000MBit/s 8mA 1IF  (Kuroutoshikou GW3.5AM-SU3G2P 37518000XXXX)
