@@ -4,6 +4,10 @@ This is the USB Attached SCSI kernel module for Synology NASes.
 
 In case you have external USB hard disks that support UASP connected to your Synology NAS, this driver will improve the read/write performance.
 
+You may also be interested in my other projects:
+* [RTL8152/RTL8153/RTL8156(2.5Gbps or 1.0Gbps ethernet) driver package for Synology NASes](https://github.com/bb-qq/r8152)
+* [AQC111U(5Gbps ethernet) driver package for Synology NASes](https://github.com/bb-qq/aqc111)
+
 ## What is USB Attached SCSI protocol?
 
 **USB Attached SCSI (UAS)** or **USB Attached SCSI Protocol (UASP)** is a protocol used to move data to and from USB storage devices such as hard drives (HDDs), solid-state drives (SSDs), and thumb drives. UAS depends on the USB protocol and uses the standard SCSI command set. The use of UAS generally provides faster transfers compared to the older USB Mass Storage Bulk-Only Transport (BOT) drivers. 
