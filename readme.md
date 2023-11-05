@@ -97,6 +97,16 @@ The uas (UAS) driver is used.
 
 Also, make sure that the device is connected via USB 3 by `3.20 5000MBit/s`.
 
+## Tips
+
+### S.M.A.R.T diagnostics
+
+Thanks to UASP can issue native commands, S.M.A.R.T can be used as is. However, DSM cannot perform S.M.A.R.T diagnostics for external storage, so `smartctl` must be used. For this, use the following command.
+
+```
+smartctl -a -d sat /dev/sdq1
+```
+
 ## Known issues
 
 ### Automatic driver loading at system startup is useless.
@@ -590,5 +600,6 @@ Run status group 0 (all jobs):
 
 Disk stats (read/write):
   sdq: ios=18351/18401, merge=2/13, ticks=4993597/3839753, in_queue=8854692, util=99.90%
+
 ```
 </details>
