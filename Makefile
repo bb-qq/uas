@@ -4,7 +4,7 @@
 
 VERSION := $(shell grep Linux/ /usr/local/sysroot/usr/include/linux/syno_autoconf.h | cut -d " " -f 4 | cut -d "." -f 1-2)
 
-PLATFORM := $(shell echo $(SYNO_PLATFORM) | tr A-Z a-z)
+PLATFORM := ds.$(shell echo $(SYNO_PLATFORM) | tr A-Z a-z)-$(PRODUCT_VERSION)
 ROOT := linux-$(PLATFORM)/drivers/usb/storage
 CHROOT := /source/uas/linux-$(PLATFORM)
 TARGETS := $(ROOT)/usb-storage.ko $(ROOT)/uas.ko
