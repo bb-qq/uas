@@ -25,7 +25,7 @@ $(ROOT)/uas.c: /tmp/linux.txz
 	tar -xJf $(<) -C $(CHROOT) --strip-components=1 --wildcards --no-anchored '*/drivers/usb/storage' '*/drivers/scsi/sd.h' '*/linux/usb'
 
 /tmp/linux.txz:
-	curl -k -o $(@) https://global.synologydownload.com/download/ToolChain/Synology%20NAS%20GPL%20Source/7.2-64570/$(PLATFORM)/linux-4.4.x.txz
+	curl -k -R -o $(@) https://global.synologydownload.com/download/ToolChain/Synology%20NAS%20GPL%20Source/7.2-64570/$(PLATFORM)/linux-4.4.x.txz
 
 spk_su: spk_su.c
 	$(CROSS_COMPILE)cc -std=c99 -o $(@) $(<)
