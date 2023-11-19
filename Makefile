@@ -22,7 +22,7 @@ modules: $(ROOT)/uas.c
 
 $(ROOT)/uas.c: /tmp/linux.txz
 	mkdir -p $(CHROOT)
-	tar -xJf $(<) -C $(CHROOT) --strip-components=1 --wildcards --no-anchored '*/drivers/usb/storage' '*/drivers/scsi/sd.h' '*/linux/usb'
+	tar -xJf $(<) -C $(CHROOT) --strip-components=1 --wildcards --no-anchored '*/drivers/usb/storage' '*/drivers/scsi/sd.h' '*/include/linux/usb/syno_quirks.h'
 
 /tmp/linux.txz:
 	curl -k -R -o $(@) https://global.synologydownload.com/download/ToolChain/Synology%20NAS%20GPL%20Source/7.2-64570/$(PLATFORM)/linux-4.4.x.txz
