@@ -35,7 +35,7 @@ You can download drivers including other platforms from the [Release page](https
 
 ## Supported devices
 
-This driver supports all UASP-enabled storage devices. However, **many UASP interoperability issues have been reported in Linux**. So the number of devices that actually work reliably may be limited.
+This driver supports all UASP-enabled storage devices. However, **many UASP interoperability issues have been reported in Linux**. So the number of devices that work reliably may be limited.
 
 ### Devices confirmed
 
@@ -57,9 +57,9 @@ These devices support UASP and are equipped with relatively new chips. Theoretic
 
 ### Notice
 
-Please note that this driver will not load when USB storage devices are mounted. To ensure the successful installation and execution of the driver, please [eject all USB storage devices from the control panel](https://kb.synology.com/en-us/DSM/help/DSM/AdminCenter/system_externaldevice_devicelist) before proceeding.
+Please note that **this driver will not be loaded when USB storage devices are mounted** for safety. To ensure the successful installation and execution of the driver, please [eject all USB storage devices from the control panel](https://kb.synology.com/en-us/DSM/help/DSM/AdminCenter/system_externaldevice_devicelist) before proceeding.
 
-The reason is that this UAS driver replaces the stock USB storage driver. Therefore, the USB storage driver will be unloaded once before the UAS driver is loaded. To avoid unintended disconnection of the USB storage, the Run/Stop operation of the driver cannot be performed while the USB storage is mounted.
+The reason is that this UAS driver replaces the stock USB storage driver. Therefore, the stock USB storage driver will be unloaded once before the UAS driver is loaded. To avoid unintended disconnection of the USB storage, the Run/Stop operation of the driver is not performed while the USB storage is mounted.
 
 ### Preparation
 
