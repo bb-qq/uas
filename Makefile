@@ -3,8 +3,9 @@
 #
 
 VERSION := $(shell grep Linux/ /usr/local/sysroot/usr/include/linux/syno_autoconf.h | cut -d " " -f 4 | cut -d "." -f 1-2)
-
-PLATFORM := ds.$(shell echo $(SYNO_PLATFORM) | tr A-Z a-z)-$(PRODUCT_VERSION)
+VERSION_SUFFIX := $(VERSION).x
+SYNO_PLATFORM_LOWER := $(shell echo $(SYNO_PLATFORM) | tr A-Z a-z)
+PLATFORM := ds.$(SYNO_PLATFORM_LOWER)-$(PRODUCT_VERSION)
 ROOT := linux-$(PLATFORM)/drivers/usb/storage
 CHROOT := /source/uas/linux-$(PLATFORM)
 TARGETS := $(ROOT)/usb-storage.ko $(ROOT)/uas.ko
@@ -25,7 +26,8 @@ $(ROOT)/uas.c: /tmp/linux.txz
 	tar -xJf $(<) -C $(CHROOT) --strip-components=1 --wildcards --no-anchored '*/drivers/usb/storage' '*/drivers/scsi/sd.h' '*/include/linux/usb/syno_quirks.h'
 
 /tmp/linux.txz:
-	curl -k -R -o $(@) https://global.synologydownload.com/download/ToolChain/Synology%20NAS%20GPL%20Source/7.2-64570/$(PLATFORM)/linux-4.4.x.txz
+	echo $(VERSION) $(VERSION_SUFFIX)
+	curl -k -R -f -o $(@) https://global.synologydownload.com/download/ToolChain/Synology%20NAS%20GPL%20Source/7.2-64570/$(SYNO_PLATFORM_LOWER)/linux-$(VERSION_SUFFIX).txz
 
 spk_su: spk_su.c
 	$(CROSS_COMPILE)cc -std=c99 -o $(@) $(<)
